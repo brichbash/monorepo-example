@@ -8,4 +8,8 @@ public class Main {
     public String process(String value[])[] {
         return value;
     }
+
+    void sample(int[] first, int[] second){
+        if (first.equals(second)) return;
+    }
 }
