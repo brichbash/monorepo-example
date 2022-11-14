@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Use qodana-backend config'
-        run: mv qodana-backend.yaml android/qodana.yaml
+        run: mv qodana-backend.yaml qodana.yaml
 
       - name: 'Qodana Backend'
         uses: JetBrains/qodana-action@v2022.2.3
