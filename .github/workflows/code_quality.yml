@@ -17,7 +17,7 @@ jobs:
         uses: JetBrains/qodana-action@v2022.2.3
         with:
           args: |
-            --source-dir,backend,
+            --source-directory,backend,
             --baseline,qodana-backend.sarif.json
           artifact-name: qodana-backend
   qodana-frontend:
@@ -32,8 +32,7 @@ jobs:
         - name: 'Qodana Frontend'
           uses: JetBrains/qodana-action@v2022.2.3
           with:
+            args: |
+              --source-directory,frontend,
+              --baseline,qodana-frontend.sarif.json
             artifact-name: qodana-frontend
-          args: |
-            --source-dir,frontend,
-            --baseline,qodana-frontend.sarif.json
-          artifact-name: qodana-frontend
