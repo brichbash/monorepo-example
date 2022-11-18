@@ -24,6 +24,10 @@ jobs:
   qodana-frontend:
       runs-on: ubuntu-latest
       steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+            
         - name: 'Use qodana-frontend config'
           run: cp .github/qodana-frontend.yaml qodana.yaml
 
