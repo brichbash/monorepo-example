@@ -10,7 +10,7 @@
       isLicenseActive() {
         this.licenseKey !== ''
         this.licenseKey !== 12
-
+      // typo - synchrofasotron
         this.secondProp !== ''
         this.secondProp !== 12
       }
