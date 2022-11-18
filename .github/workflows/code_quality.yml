@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Use qodana-backend config'
-        run: mv qodana-backend.yaml qodana.yaml
+        run: cp .github/qodana-backend.yaml qodana.yaml
 
       - name: 'Qodana Backend'
         uses: JetBrains/qodana-action@v2022.2.3
@@ -25,7 +25,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: 'Use qodana-frontend config'
-          run: mv qodana-frontend.yaml qodana.yaml
+          run: cp .github/qodana-frontend.yaml qodana.yaml
 
         - name: 'Qodana Frontend'
           uses: JetBrains/qodana-action@v2022.2.3
