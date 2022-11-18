@@ -5,6 +5,8 @@ public class Main {
         System.out.println("Hello world!");
     }
     // some typo - apear
+
+    // peporoni
     public String process(String value[])[] {
         return value;
     }

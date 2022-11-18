@@ -11,6 +11,9 @@
         this.licenseKey !== ''
         this.licenseKey !== 12
       // typo - synchrofasotron
+
+
+        //mozarela
         this.secondProp !== ''
         this.secondProp !== 12
       }
