@@ -10,7 +10,10 @@
       isLicenseActive() {
         this.licenseKey !== ''
         this.licenseKey !== 12
+      // typo - synchrofasotron
 
+      // lingini
+      //mozarela
         this.secondProp !== ''
         this.secondProp !== 12
       }
