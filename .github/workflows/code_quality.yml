@@ -6,15 +6,22 @@ on:
 jobs:
   qodana-backend:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
+          fetch-depth: 0  # a full history is required for pull request analysis
       - name: 'Use qodana-backend config'
         run: cp .github/qodana-backend.yaml qodana.yaml
 
       - name: 'Qodana Backend'
         uses: JetBrains/qodana-action@v2023.2
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           args: |
             --source-directory,backend,
@@ -23,11 +30,16 @@ jobs:
           upload-result: true
           artifact-name: qodana-backend
   qodana-frontend:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
+          fetch-depth: 0  # a full history is required for pull request analysis
             
         - name: 'Use qodana-frontend config'
           run: cp .github/qodana-frontend.yaml qodana.yaml
@@ -35,6 +47,8 @@ jobs:
         - name: 'Qodana Frontend'
           if: success() || failure()
           uses: JetBrains/qodana-action@v2023.2
+          env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           with:
             args: |
               --source-directory,frontend,
