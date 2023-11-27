@@ -14,12 +14,13 @@ jobs:
         run: cp .github/qodana-backend.yaml qodana.yaml
 
       - name: 'Qodana Backend'
-        uses: JetBrains/qodana-action@v2022.2.3
+        uses: JetBrains/qodana-action@v2023.2
         with:
           args: |
             --source-directory,backend,
             --baseline,qodana-backend.sarif.json,
             --fail-threshold,0
+          upload-result: true
           artifact-name: qodana-backend
   qodana-frontend:
       runs-on: ubuntu-latest
@@ -33,10 +34,11 @@ jobs:
 
         - name: 'Qodana Frontend'
           if: success() || failure()
-          uses: JetBrains/qodana-action@v2022.2.3
+          uses: JetBrains/qodana-action@v2023.2
           with:
             args: |
               --source-directory,frontend,
               --baseline,qodana-frontend.sarif.json,
               --fail-threshold,0
+            upload-result: true
             artifact-name: qodana-frontend
