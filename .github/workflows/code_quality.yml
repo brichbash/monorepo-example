@@ -41,18 +41,18 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
           fetch-depth: 0  # a full history is required for pull request analysis
             
-        - name: 'Use qodana-frontend config'
-          run: cp .github/qodana-frontend.yaml qodana.yaml
+      - name: 'Use qodana-frontend config'
+        run: cp .github/qodana-frontend.yaml qodana.yaml
 
-        - name: 'Qodana Frontend'
-          if: success() || failure()
-          uses: JetBrains/qodana-action@v2023.2
-          env:
+      - name: 'Qodana Frontend'
+        if: success() || failure()
+        uses: JetBrains/qodana-action@v2023.2
+        env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-          with:
-            args: |
-              --source-directory,frontend,
-              --baseline,qodana-frontend.sarif.json,
-              --fail-threshold,0
-            upload-result: true
-            artifact-name: qodana-frontend
+        with:
+          args: |
+            --source-directory,frontend,
+            --baseline,qodana-frontend.sarif.json,
+            --fail-threshold,0
+          upload-result: true
+          artifact-name: qodana-frontend
