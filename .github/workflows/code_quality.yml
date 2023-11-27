@@ -17,6 +17,12 @@ jobs:
           fetch-depth: 0  # a full history is required for pull request analysis
       - name: 'Use qodana-backend config'
         run: cp .github/qodana-backend.yaml qodana.yaml
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.SPACE_REGISTRY }}
+          username: ${{ secrets.SPACE_LOGIN }}
+          password: ${{ secrets.SPACE_TOKEN }}
 
       - name: 'Qodana Backend'
         uses: JetBrains/qodana-action@v2023.2
@@ -26,7 +32,8 @@ jobs:
           args: |
             --source-directory,backend,
             --baseline,qodana-backend.sarif.json,
-            --fail-threshold,0
+            --fail-threshold,0,
+            -l,${{ secrets.SPACE_REGISTRY }}/p/sa/containers/qodana-jvm:2023.3-rc
           upload-result: true
           artifact-name: qodana-backend
   qodana-frontend:
@@ -44,6 +51,14 @@ jobs:
       - name: 'Use qodana-frontend config'
         run: cp .github/qodana-frontend.yaml qodana.yaml
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.SPACE_REGISTRY }}
+          username: ${{ secrets.SPACE_LOGIN }}
+          password: ${{ secrets.SPACE_TOKEN }}
+
+
       - name: 'Qodana Frontend'
         if: success() || failure()
         uses: JetBrains/qodana-action@v2023.2
@@ -53,6 +68,7 @@ jobs:
           args: |
             --source-directory,frontend,
             --baseline,qodana-frontend.sarif.json,
-            --fail-threshold,0
+            --fail-threshold,0,
+            -l,${{ secrets.SPACE_REGISTRY }}/p/sa/containers/qodana-jvm:2023.3-rc
           upload-result: true
           artifact-name: qodana-frontend
